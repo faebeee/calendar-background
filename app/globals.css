@@ -1,0 +1,4 @@
+body {
+    background: #1f1f1;
+    color: var(--theme--colors--text--primary);
+}

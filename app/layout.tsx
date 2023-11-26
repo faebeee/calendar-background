@@ -1,11 +1,15 @@
 import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
+
+import '@dreipol/t3-ui/lib/bundle.css'
+import '@dreipol/t3-react-theme/lib/bundle.css'
+
 import './globals.css'
-import {Providers} from "@/lib/providers";
 import {getServerSession} from "next-auth";
 import {SessionData} from "googleapis-common/build/src/http2";
 import {redirect} from "next/navigation";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import {authOptions} from "./api/auth/[...nextauth]/route";
+import {Providers} from "../lib/components/providers";
 
 const inter = Inter({subsets: ['latin']})
 

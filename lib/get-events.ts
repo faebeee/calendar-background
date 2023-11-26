@@ -1,10 +1,6 @@
 import {google} from "googleapis";
-import {getGoogleAuth} from "@/lib/get-google-client";
 
 export async function listEvents(auth) {
-
-
-
     const calendar = google.calendar({version: 'v3', auth});
     const res = await calendar.events.list({
         calendarId: 'primary',
