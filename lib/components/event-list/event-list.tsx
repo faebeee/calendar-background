@@ -11,7 +11,7 @@ export const EventList = () => {
     const {events} = useEventsApi(calContext.ids)
 
     return <Stack direction={'column'} spacing={'48px'} crossAxis={"center"} mainAxis={"center"}>
-        {events.map((event) => <Stack direction={'column'} mainAxis={'center'}>
+        {events.map((event) => <Stack key={event.id} direction={'column'} mainAxis={'center'}>
             <Typography variant={'eventHeading'} color={'primary.light'}>{event.summary}</Typography>
             {event.location && <Typography color={'primary.light'}>{event.location}</Typography>}
             <Typography>
@@ -26,7 +26,7 @@ export const EventList = () => {
 
             <Stack>
                 <ContextChip color={'secondary'}>Starts
-                    in {(event.start.dateTime || event.start.date) && formatDuration(formatISO(new Date()), event.start.dateTime ?? event.start.date)}</ContextChip>
+                    in {(event.start.dateTime || event.start.date) && formatDuration(formatISO(new Date()), event.start.dateTime ?? event.start.date!)}</ContextChip>
                 <ContextChip
                     color={'secondary'}>Takes {event.start.dateTime && event.end.dateTime && formatDuration(event.start.dateTime, event.end.dateTime)}</ContextChip>
             </Stack>

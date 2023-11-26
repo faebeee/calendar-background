@@ -1,16 +1,21 @@
 import {getServerSession} from "next-auth";
-import {authOptions} from "../auth/[...nextauth]/route";
 import {SessionData} from "googleapis-common/build/src/http2";
 import {google} from "googleapis";
 import {getGoogleAuth} from "../../../lib/get-google-client";
 import {NextRequest} from "next/server";
+import {authOptions} from "../../../lib/auth-options";
 
 export async function GET(request: NextRequest) {
-    const session = (await getServerSession(authOptions)) as SessionData;
+    // @ts-ignore
+    const session = await getServerSession(authOptions);
+    if (!session) {
+        return Response.json([])
+    }
 
     const calendars = new URL(request.url).searchParams.getAll('calendars[]')
     const limit = parseInt(new URL(request.url).searchParams.get('limit') ?? '3') ?? 3;
 
+    // @ts-ignore
     const calendar = google.calendar({version: 'v3', auth: getGoogleAuth(session.accessToken, session.refreshToken)});
     const calendarResponse = await calendar.calendarList.list({})
     const events = await Promise.all(
@@ -30,8 +35,7 @@ export async function GET(request: NextRequest) {
 
 
     const sortedEvents = events!.sort((a, b) => {
-        // Turn your strings into dates, and then subtract them
-        // to get a value that is either negative, positive, or zero.
+        // @ts-ignore
         return new Date(a.start.dateTime ?? a.start.date) - new Date(b.start.dateTime ?? b.start.date);
     });
 

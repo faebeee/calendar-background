@@ -6,15 +6,16 @@ import {
     CardContent,
     CardFooter,
     CardHeader,
-    Dialog, Stack,
+    Dialog,
+    Stack,
     Typography
 } from "@dreipol/t3-ui";
-import {getSession, signOut, useSession} from "next-auth/react";
+import {signOut, useSession} from "next-auth/react";
 import {CalendarList} from "./calendar-list/calendar-list";
 import {useState} from "react";
-import {Schema$CalendarListEntry} from "googleapis/build/src/apis/calendar/v3";
+import {Calendar} from "../types/calendar";
 
-export const AppBar = ({calendars}: { calendars: Schema$CalendarListEntry[] }) => {
+export const AppBar = ({calendars}: { calendars: Calendar[] }) => {
     const {status} = useSession()
     const [openDialog, setDialogOpen] = useState(false)
 

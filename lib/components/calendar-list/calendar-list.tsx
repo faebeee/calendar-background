@@ -1,14 +1,14 @@
 'use client'
 
 import {Checkbox, List, ListItem} from "@dreipol/t3-ui";
-import {Schema$CalendarListEntry} from "googleapis/build/src/apis/calendar/v3";
 import {useSelectionList} from "@dreipol/t3-react-utils";
 import {useEffect} from "react";
 import {useCalendarContext} from "../../context/calendar-context";
+import {Calendar} from "../../types/calendar";
 
 
 export type CalendarListProps = {
-    calendars: Schema$CalendarListEntry[]
+    calendars: Calendar[]
 }
 export const CalendarList = ({calendars}: CalendarListProps) => {
     const calContext = useCalendarContext()
